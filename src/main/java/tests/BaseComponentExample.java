@@ -54,9 +54,7 @@ public class BaseComponentExample extends BaseComponent {
 		Response response = doDeleteRequest("api/users/"+id);
 		assertThat(response.jsonPath().getString("msg"), is(equalTo("It has been deleted.")));
 
-		
-		
+				
 	}
-	
 	
 }

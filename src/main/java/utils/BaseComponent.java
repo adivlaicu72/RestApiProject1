@@ -67,7 +67,5 @@ public class BaseComponent {
 				extract().response();
 	return response;
 }
-	
-	
-	
+		
 }
