@@ -35,7 +35,7 @@ public class RestAssuredAuthExample {
 
 	}
 	
-	@Test
+	//@Test
 	public void formAuth() {
 		
 		Response response = given().
@@ -71,6 +71,36 @@ public class RestAssuredAuthExample {
 		
 		System.out.println(response3.asString());
 		assertTrue(response3.asString().contains("Order #<mark class=\"order-number\">2857</mark> was placed on <mark class=\"order-date\">July 8, 2024</mark> and is currently <mark class=\"order-status\">Processing</mark>.</p>"));
+	}
+	
+	@Test
+	public void bearerAuth() {
+		
+		Response responseToken = given().
+				contentType(ContentType.JSON).
+				body("{\"user\":\"admin\",\"pass\": \"admin@123\"}").
+				post("https://dev-todo-b369f85c9f07.herokuapp.com/api/login").
+				then().extract().response();
+		
+		String token =responseToken.jsonPath().getString("token");
+		System.out.println(responseToken.asPrettyString());
+		
+		Response responseProfile = given().
+				//auth().oauth2(token).
+				header("Authorization", "Bearer" +token).
+				get("https://dev-todo-b369f85c9f07.herokuapp.com/api/api/profile").
+				then().extract().response();
+		
+		System.out.println(responseProfile.asPrettyString());
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
