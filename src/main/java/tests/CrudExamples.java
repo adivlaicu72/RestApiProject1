@@ -88,8 +88,8 @@ public class CrudExamples {
 		
 		//testNG assert
 		assertEquals(id, response.jsonPath().getString("_id"));
-		//hamcrest assert
 		
+		//hamcrest assert
 		assertThat(id, is(equalTo(response.jsonPath().getString("_id"))));
 		//assertThat
 		
