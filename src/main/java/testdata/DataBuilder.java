@@ -54,10 +54,25 @@ public class DataBuilder {
 	public static JSONObject buildToDo() {
 		Faker fake = new Faker();
 		JSONObject todoBuilder = new JSONObject();
-		todoBuilder .put("title", fake.name().fullName());
-		todoBuilder .put("body", fake.address().fullAddress());
+		todoBuilder.put("title", fake.name().fullName());
+		todoBuilder.put("body", fake.address().fullAddress());
 		
 		return todoBuilder;
+				
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONObject buildAirline() {
+		JSONObject airLineBuilder = new JSONObject();
+		airLineBuilder.put("name", "Tarom");
+		airLineBuilder.put("country", "Romania");
+		airLineBuilder.put("logo", "https://commons.wikimedia.org/wiki/File:TAROM_Logo_tail.svg");
+		airLineBuilder.put("slogan", "From Romania");
+		airLineBuilder.put("head_quaters", "Bucharest Romania");
+		airLineBuilder.put("website", "www.tarom.com");
+		airLineBuilder.put("etablished", "1990");
+		
+		return airLineBuilder;
 				
 	}
 	
