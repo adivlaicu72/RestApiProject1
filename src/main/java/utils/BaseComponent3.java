@@ -29,5 +29,37 @@ public class BaseComponent3 {
 			return response;
 			
 	}
+		public static Response doPatchRequest(String path, String body) {
+			
+			Response response = given().
+					body(body).
+				when().	
+					patch(path). 
+				then(). 
+					extract().response();
+				return response;
+			
+		}
+		
+	public static Response doGetRequest(String path) {
+		
+		Response response = given().
+			when().	
+				get(path). 
+			then(). 
+				extract().response();
+			return response;
+		
+	}
+	public static Response doDeleteRequest(String path) {
+		
+		Response response = given().
+			when().	
+				delete(path). 
+			then(). 
+				extract().response();
+			return response;
+		
+	}
 }
 

@@ -17,7 +17,7 @@ public class BaseComponent2 {
 	
 	String token;
 	public static RequestSpecification requestSpec;
-	public static ResponseSpecification responseSpec, nevativeResponseSpec;
+	public static ResponseSpecification responseSpec, negativeResponseSpec;
 	
 	@BeforeClass
 	public void setup() {
@@ -42,7 +42,7 @@ public class BaseComponent2 {
 				expectStatusCode(either(is(200)).or(is(201)).or(is(204)))
 				.build();
 		
-		nevativeResponseSpec = new ResponseSpecBuilder(). 
+		negativeResponseSpec = new ResponseSpecBuilder(). 
 				expectStatusCode(either(is(403)).or(is(405)).or(is(406)))
 				.build();
 	}
