@@ -2,9 +2,9 @@ import org.testng.annotations.Test;
 
 import io.restassured.response.Response;
 import testdata.DataBuilder;
-import utils.BaseComponent4;
+import utils.BaseComponent3;
 
-public class BaseComponent4Test extends BaseComponent4{
+public class BaseComponent4Test extends BaseComponent3{
 
 	@Test
 	public void postTodoWithToken() {

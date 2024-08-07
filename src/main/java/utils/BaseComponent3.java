@@ -1,65 +1,91 @@
 package utils;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.either;
+import static org.hamcrest.Matchers.is;
 
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
-import io.restassured.RestAssured;
+import org.testng.annotations.BeforeSuite;
+
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
+import report.utils.ExtentManager;
+import testdata.DataBuilder;
 
 public class BaseComponent3 {
 
-		@BeforeClass
-		public void setup() {
-			
-			RestAssured.baseURI="https://api.instantwebtools.net/";
-			
+	String token;
+	public static RequestSpecification requestSpec;
+	public static ResponseSpecification responseSpec, nevativeResponseSpec;
+	
+	@BeforeSuite
+	public void beforeSuite() {
+		ExtentManager.setReport();;
+	}
+	
+	@AfterSuite
+	public void afterSuite() {
+		ExtentManager.endReport();
+	}
+	
+	
+	@BeforeClass
+	public void setup() {
+	
+		Response responseToken = given(). 
+				contentType(ContentType.JSON). 
+				body(DataBuilder.buildToken().toJSONString()). 
+				post("https://dev-todo-b369f85c9f07.herokuapp.com/api/login")
+				.then().extract().response();
+				
+		token = responseToken.jsonPath().getString("token");
+		
+		requestSpec = new RequestSpecBuilder(). 
+				setContentType(ContentType.JSON). 
+				setBaseUri("https://dev-todo-b369f85c9f07.herokuapp.com/"). 
+				setBasePath("api/"). 
+				addHeader("Authorization", "Bearer " +token).
+				addHeader("accept", "application/json").build();
+		
+		
+		responseSpec = new ResponseSpecBuilder(). 
+				expectStatusCode(either(is(200)).or(is(201)).or(is(204)))
+				.build();
+		
+		nevativeResponseSpec = new ResponseSpecBuilder(). 
+				expectStatusCode(either(is(403)).or(is(405)).or(is(406)))
+				.build();
+	}
+	
+	
+	public static Response doRequest(String method, String param, String body) {
+		
+		Response result = null;
+		
+		switch(method.toUpperCase()) {
+		
+		case "GET" : result = given().spec(requestSpec).get(param);
+			break;
+		case "POST": result = given().spec(requestSpec).body(body).post(param);
+			break;
+		case "PATCH": result = given().spec(requestSpec).body(body).patch(param);
+			break;
+		case "DELETE" : result = given().spec(requestSpec).delete(param);
+		
 		}
 		
-		public static Response doPostRequest(String path, String reqBody, int statusCode) {
-			
-			Response response = given().
-									contentType(ContentType.JSON).
-									body(reqBody).
-								when().	
-									post(path). 
-								then(). 
-									statusCode(statusCode). 
-									extract().response();
-			return response;
-			
-	}
-		public static Response doPatchRequest(String path, String body) {
-			
-			Response response = given().
-					body(body).
-				when().	
-					patch(path). 
-				then(). 
-					extract().response();
-				return response;
-			
+		if(result != null) {
+			result = result.then().spec(responseSpec).extract().response();
 		}
 		
-	public static Response doGetRequest(String path) {
-		
-		Response response = given().
-			when().	
-				get(path). 
-			then(). 
-				extract().response();
-			return response;
-		
+		return result;
 	}
-	public static Response doDeleteRequest(String path) {
-		
-		Response response = given().
-			when().	
-				delete(path). 
-			then(). 
-				extract().response();
-			return response;
-		
-	}
+	
+	
+	
 }
-

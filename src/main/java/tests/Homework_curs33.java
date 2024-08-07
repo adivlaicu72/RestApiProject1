@@ -8,9 +8,9 @@ import org.testng.annotations.Test;
 
 import io.restassured.response.Response;
 import testdata.DataBuilder;
-import utils.BaseComponent3;
+import utils.BaseComponent5;
 
-public class Homework_curs33 extends BaseComponent3{
+public class Homework_curs33 extends BaseComponent5{
 	
 	String name, country, logo, slogan, head_quaters, website, established, id;
 	
