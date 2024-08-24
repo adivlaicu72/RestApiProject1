@@ -80,4 +80,19 @@ public class DataBuilder {
 				
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static JSONObject buildPassenger() {
+		
+		JSONObject bodyBuilder = new JSONObject();
+		Faker fake = new Faker();
+		
+		bodyBuilder.put("name", fake.name().fullName());
+		bodyBuilder.put("trips", 250);
+		bodyBuilder.put("airline", "9259cf3b-5a5a-4c62-8ead-395cdec3f00b");
+
+		return bodyBuilder;
+	}
+	
+	
+	
 }
