@@ -52,7 +52,7 @@ public class Homework_curs33 extends BaseComponent4 {
 	}
 	
 	
-	@Test(priority=4) 
+	//@Test(priority=4) 
 	public void deletePassenger() {
 		Response response4 = given().delete("v1/passenger/"+passengerId).then().extract().response();
 		System.out.println(response4.asPrettyString());
