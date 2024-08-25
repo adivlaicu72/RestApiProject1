@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.emptyCollectionOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertThat;
 
 import org.testng.annotations.Test;
@@ -23,7 +24,8 @@ public class Homework_curs34 {
 		Response response = given().get("https://swapi.dev/api/starships/3/").
 				then().extract().response();
 		
-		System.out.println(response.asString());
+		System.out.println(response.asPrettyString());
+		
 		JsonPath json = response.jsonPath();
 
 		assertThat(response.asString(), either(containsString("https://swapi.dev/api/films/2"))
@@ -37,9 +39,18 @@ public class Homework_curs34 {
 		
 		assertThat(json.getString("name"), is(not(matchesPattern("[a-z 0-9]+"))));
 		
+		assertThat(json.getString("crew"), is(matchesPattern("[0-9 0-9 , 0-9 0-9 0-9]+")));
+		
+		assertThat(json.getString("passengers"), is(matchesPattern("[a-z / a-z]+")));
+		
+		System.out.println(response.asString().length());
+		assertThat(response.asString().length(), is(not(lessThan(100))));
+		
 		
 		
 	
 		
 	}
+
+
 }
