@@ -44,7 +44,7 @@ public class Homework_curs34 {
 		assertThat(json.getString("passengers"), is(matchesPattern("[a-z / a-z]+")));
 		
 		System.out.println(response.asString().length());
-		assertThat(response.asString().length(), is(not(lessThan(100))));
+		assertThat(response.asString().length(), is(not(lessThan(100)))); 
 		
 		
 		
