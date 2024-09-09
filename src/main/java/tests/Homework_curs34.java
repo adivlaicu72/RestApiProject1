@@ -11,6 +11,8 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertThat;
 
+import java.util.List;
+
 import org.testng.annotations.Test;
 
 import io.restassured.path.json.JsonPath;
@@ -27,13 +29,16 @@ public class Homework_curs34 {
 		System.out.println(response.asPrettyString());
 		
 		JsonPath json = response.jsonPath();
+		
+		 List<String> pilots = json.getList("pilots");
+         List<String> films = json.getList("films");
 
 		assertThat(response.asString(), either(containsString("https://swapi.dev/api/films/2"))
 				.or(containsString("https://swapi.dev/api/films/6")).or(containsString("https://swapi.dev/api/films/5")));
 		
-		assertThat(json.getList("pilots"), is((emptyCollectionOf(String.class))));
+		assertThat(pilots, is((emptyCollectionOf(String.class))));
 		
-		assertThat(json.getList("films"), is(not(emptyCollectionOf(String.class))));
+		assertThat(films, is(not(emptyCollectionOf(String.class))));
 		
 		assertThat(json.getString("model"), both(containsString("Imperial")).and(containsString("Destroyer")));
 		

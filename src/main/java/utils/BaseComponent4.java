@@ -12,7 +12,7 @@ public class BaseComponent4 {
 	@BeforeClass
 	public void setup() {
 		
-		RestAssured.baseURI="https://api.instantwebtools.net";
+		RestAssured.baseURI="https://api.instantwebtools.net/";
 		
 	}
 	

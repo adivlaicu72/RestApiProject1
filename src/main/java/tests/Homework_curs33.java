@@ -21,15 +21,8 @@ public class Homework_curs33 extends BaseComponent4 {
 		
 		Response response = doPostRequest("v1/airlines/", DataBuilder.buildAirline().toJSONString(), 200);
 	
-		airlineId = response.jsonPath().getString("result._id");
-		airlineName = response.jsonPath().getString("result.name");
-		country = response.jsonPath().getString("result.country");
-		logo = response.jsonPath().getString("result.logo");
-		slogan = response.jsonPath().getString("result.slogan");
-		head_quarters = response.jsonPath().getString("result.head_quarters");
-		website = response.jsonPath().getString("result.website");
-		established = response.jsonPath().getString("result.established");
-		assertThat(airlineId, is(equalTo(response.jsonPath().getString("result._id"))));	
+		airlineId = response.jsonPath().getString("_id");
+		assertThat(airlineId, is(equalTo(response.jsonPath().getString("_id"))));	
 		System.out.println(response.asPrettyString());
 		
 	}
@@ -37,6 +30,7 @@ public class Homework_curs33 extends BaseComponent4 {
 	@Test(priority=2)
 	public void createPassenger() {
 		Response response2 = doPostRequest("v1/passenger/", DataBuilder.buildPassenger().toJSONString(), 200);
+		passengerId = response2.jsonPath().getString("_id");
 		System.out.println(response2.asPrettyString());
 		
 	}
@@ -44,23 +38,18 @@ public class Homework_curs33 extends BaseComponent4 {
 	@Test(priority=3) 
 	public void getPassenger() {
 		Response response3 = given().get("v1/passenger/"+passengerId).then().extract().response();
+		trips = response3.jsonPath().getString("trips");
 		assertThat(trips, is(equalTo(response3.jsonPath().getString("trips"))));
-		assertThat(airlineName, is(equalTo(response3.jsonPath().getString("result.name"))));
-		System.out.println(response3.jsonPath().getString("result._id"));
-
+		assertThat(airlineName, is(equalTo(response3.jsonPath().getString("airline[1].name"))));
+		System.out.println(response3.asPrettyString());
 		
-	}
+	}	
 	
-	
-	//@Test(priority=4) 
+	@Test(priority=4) 
 	public void deletePassenger() {
 		Response response4 = given().delete("v1/passenger/"+passengerId).then().extract().response();
 		System.out.println(response4.asPrettyString());
 			
-
 	}
-
-
-
 	
 }

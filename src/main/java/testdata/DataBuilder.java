@@ -88,7 +88,7 @@ public class DataBuilder {
 		
 		bodyBuilder.put("name", fake.name().fullName());
 		bodyBuilder.put("trips", 250);
-		bodyBuilder.put("airline", "9259cf3b-5a5a-4c62-8ead-395cdec3f00b");
+		bodyBuilder.put("airline", "f47c420c-390d-4714-9f96-79c13330ec04");
 
 		return bodyBuilder;
 	}
