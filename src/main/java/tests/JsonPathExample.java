@@ -29,7 +29,7 @@ public class JsonPathExample {
 		System.out.println(json.getString("users.email"));
 		System.out.println(json.getString("users._id"));
 		
-		//read value from array based on index od an object in array
+		//read value from array based on index of an object in array
 		System.out.println(json.getString("users.name[4]"));
 		System.out.println(json.getString("users[0]"));
 		System.out.println(json.getString("users[4].name"));
